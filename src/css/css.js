@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 module.exports = StyleSheet.create({
     baseColor:'#E91E59',
@@ -7,7 +10,16 @@ module.exports = StyleSheet.create({
     baseBackground:{
       backgroundColor: '#E91E59'
     },
+    whiteBackground:{
+      backgroundColor: 'white'
+    },
     baseTextColor:{
+      color: 'white'
+    },
+    textBlack:{
+      color: 'black'
+    },
+    textWhite:{
       color: 'white'
     },
     heading2:{
@@ -23,10 +35,17 @@ module.exports = StyleSheet.create({
       width:'100%',
       height:'100%',
     },
+    fullViewPort:{
+      width:windowWidth,
+      height:windowHeight,
+    },
     flexC:{
       flex:1,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    spacebtw:{
+      justifyContent:'space-evenly'
     },
     screen:{
       backgroundColor: '#E91E59'
@@ -34,4 +53,14 @@ module.exports = StyleSheet.create({
     textC:{
       textAlign:'center',
     },
+    textBlack:{
+      color:'black',
+    },
+    gradientButton:{
+      color:'black',
+    },
+    borderblacktest:{
+    borderWidth:4,
+    borderBlockColor:'black'
+  }
 })

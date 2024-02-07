@@ -7,7 +7,7 @@ const logo = require('../../images/Havemeal@X5.png')
 export default function Logo() {
   return (
     <View style={[ global.baseBackground,styles.container,]}>
-        <Image style={styles.img} source={logo} /> 
+        <Image style={[styles.img]} source={logo} />  
     </View>
   )
 }

@@ -15,7 +15,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function StartScreen() {
   return (
-    <SafeAreaView style={[global.flexC, styles.container, styles.safeArea]}>
+    <SafeAreaView style={[global.flexC, global.fullViewPort, styles.safeArea]}>
       {/* <StatusBar
         animated={true}
         backgroundColor={global.baseLinear2}
@@ -50,11 +50,6 @@ export default function StartScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: windowWidth,
-    height: windowWidth,
-    // backgroundColor: '#E91E59'
-  },
   safeArea: {
     backgroundColor:global.baseColor
   },
