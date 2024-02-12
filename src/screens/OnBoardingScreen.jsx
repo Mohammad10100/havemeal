@@ -1,5 +1,6 @@
 import {SafeAreaView, StyleSheet, Text, View, Dimensions, Image, Pressable, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import GradientButton from '../Components/common/GradientButton'
 const global = require('../css/css')
 
@@ -16,6 +17,8 @@ export default function OnBoardingScreen() {
     const [heading, setHeading] = useState('Find Food You Love')
     const [qoute, setQoute] = useState('Discover the best foods from over 1,000 restaurants and fast delivery to your doorstep')
     const [svgIcon, setSvgIcon] = useState(1)
+
+    AsyncStorage.setItem('@visited', '1');
 
     const changeSlide = ()=>{
         if(slideState==2){
