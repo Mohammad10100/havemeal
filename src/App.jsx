@@ -13,8 +13,7 @@ const global = require('./css/css')
 
 // Screens
 import StartScreen from './screens/StartScreen';
-import StartScreen2 from './screens/StartScreen2';
-
+import MainAppScreen from './MainApp';
 const Stack = createNativeStackNavigator();
 
 // TODO: Status bar
@@ -25,11 +24,17 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName='Home'> 
-      <Stack.Screen name="StartScreen2" component={StartScreen} />
-      <Stack.Screen name="Home" component={StartScreen2} />
-
-    </Stack.Navigator> 
+      <Stack.Navigator 
+      screenOptions={{ headerShown: false }} >
+        <Stack.Screen
+          name="StartScreen"
+          component={StartScreen}
+          />
+        <Stack.Screen
+          name="MainApp"
+          component={MainAppScreen}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
