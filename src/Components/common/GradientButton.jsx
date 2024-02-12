@@ -1,7 +1,6 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
-import { StyleSheet } from 'nativewind';
 const global = require('../../css/css')
 
 export default function GradientButton(props) {
