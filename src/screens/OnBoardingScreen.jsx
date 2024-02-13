@@ -18,10 +18,9 @@ export default function OnBoardingScreen() {
     const [qoute, setQoute] = useState('Discover the best foods from over 1,000 restaurants and fast delivery to your doorstep')
     const [svgIcon, setSvgIcon] = useState(1)
 
-    AsyncStorage.setItem('@visited', '1');
-
     const changeSlide = ()=>{
         if(slideState==2){
+            AsyncStorage.setItem('@visited', '1');
             setSlideState(3)
             setHeading("Live Tracking")
             setQoute("Real time tracking of your food on the app once you placed the order")
