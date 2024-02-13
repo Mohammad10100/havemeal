@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     },
     bottomView:{
       position:'absolute',
-      bottom:windowHeight/100*20
+      bottom:windowHeight/100*15
     },
     widht80:{
       width: windowWidth/100*80
