@@ -9,14 +9,15 @@ const windowWidth = Dimensions.get('window').width;
 
 
 export default function GradientButton(props) {
+  const empty = props.empty?true:false;
 
   return (
     <LinearGradient 
-    colors={[global.baseLinear2, global.baseLinear1] }
-    style={styles.gradientView} start={{ x: 0, y: 0 }}
+    colors={empty?['#fff', '#fff']:[global.baseLinear2, global.baseLinear1] }
+    style={[styles.gradientView, styles.emptyView]} start={{ x: 0, y: 0 }}
     end={{ x: 1, y: 0 }}>
         <View style={styles.btn}>
-          <Text style={[global.textBlack, global.textC, global.textWhite]} >{props.name?props.name:null}</Text>
+          <Text style={[global.textBlack, global.textC, empty?styles.emptyText:global.textWhite]} >{props.name?props.name:null}</Text>
         </View>
     </LinearGradient>
   )
@@ -31,6 +32,13 @@ const styles = StyleSheet.create({
     margin:10,
     borderRadius:100,
 
+  },
+  emptyView:{
+    borderColor:global.baseLinear1,
+    borderWidth:2,
+  },
+  emptyText:{
+    color:global.baseLinear1
   },
   // width:{
   //   width:windowWidth/1.9,
