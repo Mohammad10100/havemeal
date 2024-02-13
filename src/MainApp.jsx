@@ -14,9 +14,10 @@ const Stack = createNativeStackNavigator();
 import OnBoardingScreen from './screens/OnBoardingScreen';
 import HomeScreen from './screens/HomeScreen';
 import Authentication from './screens/Authentication/Index';
+import SignUpScreen from './screens/Authentication/SignUpScreen';
+import LogInScreen from './screens/Authentication/LogInScreen';
 
-export default function MainApp({navigation}) {
-  const [visitedCount, setVisitedCount] = useState(0)
+export default function MainApp({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Check user authentication status
@@ -24,11 +25,6 @@ export default function MainApp({navigation}) {
     const checkAuthentication = async () => {
       try {
         const userToken = await AsyncStorage.getItem('@userToken');
-        if(userToken == null){
-          navigation.navigate('Authentication')
-        }else{
-          navigation.navigate('HomeScreen')
-        }
         setIsLoggedIn(!!userToken); // Convert userToken to boolean
       } catch (error) {
         console.error('Error checking authentication:', error);
@@ -41,14 +37,17 @@ export default function MainApp({navigation}) {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }} >
-        <Stack.Screen
-          name="Authentication"
-          component={Authentication}
-        />
-        <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-        />
+      {isLoggedIn ? (
+        <>
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Authentication" component={Authentication} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="LogIn" component={LogInScreen} />
+        </>
+      )}
     </Stack.Navigator>
   )
 }

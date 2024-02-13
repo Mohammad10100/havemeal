@@ -11,27 +11,9 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-export default function Index() {
+export default function Index({navigation}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    // useEffect(() => {
-    //     const checkAuthentication = async () => {
-    //         try {
-    //             const userToken = await AsyncStorage.getItem('@userToken');
-    //             if (userToken == null) {
-    //                 navigation.navigate('Authentication')
-    //             } else {
-    //                 navigation.navigate('HomeScreen')
-    //             }
-    //             setIsLoggedIn(!!userToken); // Convert userToken to boolean
-    //         } catch (error) {
-    //             console.error('Error checking authentication:', error);
-    //             navigation.navigate('Authentication')
-    //         }
-    //     };
-
-    //     checkAuthentication();
-    // }, []);
+    // TODO: Loading Screen
     return (
         <View style={styles.container}>
             <View>
@@ -47,13 +29,13 @@ export default function Index() {
             <View style={[styles.bottomView]}>
                 <Text style={[global.textBlack, global.secondaryText, styles.qoute]} >Discover the best foods from restaurants and get fast delivery to your doorstep</Text>
                 <Pressable
-                    onPress={ ()=>{ console.log('Login Clicked')}}
+                    onPress={ ()=>{navigation.push('LogIn')}}
                     style={styles.button}>
                     <GradientButton 
                     name={'Login'} />
                 </Pressable>
                 <Pressable
-                    onPress={ ()=>{ console.log('Create Account Clicked')}}
+                    onPress={ ()=>{navigation.push('SignUp')}}
                     style={styles.button}>
                     <GradientButton 
                     name={'Create an Account'}

@@ -8,6 +8,7 @@ import {
   Dimensions
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Logo from '../Components/common/Logo'
 const global = require('../css/css')
 
@@ -15,20 +16,20 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function StartScreen({ navigation }) {
-  const [visited, setVisited] = useState(false)
 
   // check if already visited
   const checkVisited = async () => {
     try {
       const value = await AsyncStorage.getItem('@visited');
-      value === 1 ? navigation.navigate('MainApp')
+      value == 1?navigation.navigate('MainApp')
         : navigation.navigate('OnBoarding')
+        console.log(value);
     } catch (error) {
       console.error('Error while retrieving @visited from AsyncStorage:', error);
       navigation.navigate('MainApp');
     }
   };
-  
+
   useEffect(() => {
     const changeOnXSecond = () => {
       setTimeout(() => {
