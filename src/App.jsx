@@ -14,6 +14,7 @@ const global = require('./css/css')
 // Screens
 import StartScreen from './screens/StartScreen';
 import MainAppScreen from './MainApp';
+import OnBoardingScreen from './screens/OnBoardingScreen';
 const Stack = createNativeStackNavigator();
 
 // TODO: Status bar
@@ -30,6 +31,10 @@ export default function App() {
           name="StartScreen"
           component={StartScreen}
           />
+        <Stack.Screen
+          name="OnBoarding"
+          component={OnBoardingScreen}
+        />
         <Stack.Screen
           name="MainApp"
           component={MainAppScreen}

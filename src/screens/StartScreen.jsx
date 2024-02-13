@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
-  SafeAreaView, 
+  SafeAreaView,
   StatusBar,
-  StyleSheet, 
-  Text, 
+  StyleSheet,
+  Text,
   View,
-  Dimensions } from 'react-native'
+  Dimensions
+} from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import Logo from '../Components/common/Logo'
 const global = require('../css/css')
@@ -13,15 +14,28 @@ const global = require('../css/css')
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default function StartScreen({navigation}) {
+export default function StartScreen({ navigation }) {
+  const [visited, setVisited] = useState(false)
 
+  // check if already visited
+  const checkVisited = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@visited');
+      value === 1 ? navigation.navigate('MainApp')
+        : navigation.navigate('OnBoarding')
+    } catch (error) {
+      console.error('Error while retrieving @visited from AsyncStorage:', error);
+      navigation.navigate('MainApp');
+    }
+  };
+  
   useEffect(() => {
-    const changeOnXSecond = () =>{
-      setTimeout(()=>{
-        navigation.navigate('MainApp')
+    const changeOnXSecond = () => {
+      setTimeout(() => {
+        checkVisited();
       }, 2000);
     }
-  
+
     changeOnXSecond()
   }, []);
 
@@ -41,7 +55,7 @@ export default function StartScreen({navigation}) {
         x2={-0.0000124527}
         y2={915.5}
         gradientUnits='userSpaceOnUse'
-        >
+      >
         <View style={[styles.container, global.flexC, styles.flexJust]}>
           <View style={[global.flexC, styles.container, styles.logo]}>
             <Logo />
@@ -63,7 +77,7 @@ export default function StartScreen({navigation}) {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor:global.baseColor
+    backgroundColor: global.baseColor
   },
   heading: {
     marginBottom: 12
@@ -76,11 +90,11 @@ const styles = StyleSheet.create({
   },
   logo: {
     position: 'absolute',
-    top:windowHeight/100*25,
+    top: windowHeight / 100 * 25,
   },
   bottomView: {
     // position: 'absolute',
-    marginTop:windowHeight/100*45,
+    marginTop: windowHeight / 100 * 45,
   },
 })
 

@@ -13,29 +13,41 @@ const Stack = createNativeStackNavigator();
 // Screens
 import OnBoardingScreen from './screens/OnBoardingScreen';
 import HomeScreen from './screens/HomeScreen';
+import Authentication from './screens/Authentication/Index';
 
 export default function MainApp({navigation}) {
   const [visitedCount, setVisitedCount] = useState(0)
-  // check if already visited
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check user authentication status
   useEffect(() => {
-    const checkVisited = async () => {
-        const value = await AsyncStorage.getItem('@visited');
-        value==1?navigation.navigate('HomeScreen')
-        :navigation.navigate('OnBoarding')
+    const checkAuthentication = async () => {
+      try {
+        const userToken = await AsyncStorage.getItem('@userToken');
+        if(userToken == null){
+          navigation.navigate('Authentication')
+        }else{
+          navigation.navigate('HomeScreen')
+        }
+        setIsLoggedIn(!!userToken); // Convert userToken to boolean
+      } catch (error) {
+        console.error('Error checking authentication:', error);
+        navigation.navigate('Authentication')
+      }
     };
 
-    checkVisited();
+    checkAuthentication();
   }, []);
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }} >
         <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
+          name="Authentication"
+          component={Authentication}
         />
         <Stack.Screen
-          name="OnBoarding"
-          component={OnBoardingScreen}
+          name="HomeScreen"
+          component={HomeScreen}
         />
     </Stack.Navigator>
   )
