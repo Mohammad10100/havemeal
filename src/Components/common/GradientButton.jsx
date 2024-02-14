@@ -25,11 +25,9 @@ export default function GradientButton(props) {
 
 const styles = StyleSheet.create({
   btn: {
-    padding:13,
-    margin:3,
+    padding:18,
   },
   gradientView:{
-    margin:10,
     borderRadius:100,
 
   },

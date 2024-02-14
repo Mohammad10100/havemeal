@@ -12,7 +12,6 @@ const windowHeight = Dimensions.get('window').height;
 
 
 export default function Index({navigation}) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     // TODO: Loading Screen
     return (
         <View style={styles.container}>

@@ -59,6 +59,14 @@ module.exports = StyleSheet.create({
     gradientButton:{
       color:'black',
     },
+    inputStyle:{
+      backgroundColor:'#d9d9d9',
+      borderRadius:100,
+      padding:20,
+      lineHeight:20,
+      fontSize:17,
+      color:'#4E4E4E'
+    },
     borderblacktest:{
     borderWidth:4,
     borderBlockColor:'black'
