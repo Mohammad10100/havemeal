@@ -3,12 +3,16 @@ import { StyleSheet, Dimensions } from 'react-native'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+const baseColor='#E91E59';
+const baseLinear1='#F56178';
+const baseLinear2='#E71989';
+
 module.exports = StyleSheet.create({
-    baseColor:'#E91E59',
-    baseLinear1:'#F56178',
-    baseLinear2:'#E71989',
+    baseColor:baseColor,
+    baseLinear1:baseLinear1,
+    baseLinear2:baseLinear2,
     baseBackground:{
-      backgroundColor: '#E91E59'
+      backgroundColor: baseColor,
     },
     whiteBackground:{
       backgroundColor: 'white'
@@ -48,7 +52,7 @@ module.exports = StyleSheet.create({
       justifyContent:'space-evenly'
     },
     screen:{
-      backgroundColor: '#E91E59'
+      backgroundColor: baseColor
     },
     textC:{
       textAlign:'center',
@@ -66,6 +70,11 @@ module.exports = StyleSheet.create({
       lineHeight:20,
       fontSize:17,
       color:'#4E4E4E'
+    },
+    linkedText:{
+      color:baseColor,
+      fontWeight:'bold',
+      marginHorizontal:5
     },
     borderblacktest:{
     borderWidth:4,

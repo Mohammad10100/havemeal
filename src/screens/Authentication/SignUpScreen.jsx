@@ -6,7 +6,7 @@ const global = require('../../css/css')
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default function SignUpScreen({navigation}) {
+export default function SignUpScreen({ navigation }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -51,12 +51,12 @@ export default function SignUpScreen({navigation}) {
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
         <View>
-        <Text style={[global.textBlack, global.heading2, global.textC, styles.heading]}>
-          Sign Up
-        </Text>
-        <Text style={[global.textBlack, global.secondaryText, styles.qoute]}>
-          Enter you details to sign up
-        </Text>
+          <Text style={[global.textBlack, global.heading2, global.textC, styles.heading]}>
+            Sign Up
+          </Text>
+          <Text style={[global.textBlack, global.secondaryText, styles.qoute]}>
+            Enter you details to sign up
+          </Text>
         </View>
         <TextInput
           style={[global.textC, global.inputStyle, styles.input]}
@@ -76,7 +76,7 @@ export default function SignUpScreen({navigation}) {
           placeholder="Mobile Number"
           value={formData.mobileNumber}
           onChangeText={text => handleChange('mobileNumber', text)}
-          keyboardType="number"
+          keyboardType="number-pad"
         />
         <TextInput
           style={[global.textC, global.inputStyle, styles.input]}
@@ -104,13 +104,15 @@ export default function SignUpScreen({navigation}) {
           style={styles.button}>
           <GradientButton name={'Sign Up'} />
         </TouchableOpacity>
-        <Text style={[global.textBlack, global.secondaryText, styles.qoute]}>
-          Already have an Account? 
+        <View style={styles.switchOption}>
+          <Text style={[global.textBlack, global.secondaryText, styles.qoute]}>
+            Already have an Account?
+          </Text>
           <TouchableOpacity
-          onPress={()=>{navigation.replace('LogIn')}}>
-          <Text>Login</Text>
-        </TouchableOpacity>
-        </Text>
+            onPress={() => { navigation.replace('LogIn') }}>
+            <Text style={[global.secondaryText, global.linkedText]}>Login</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   )
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     width: windowWidth,
-    height: windowHeight/100*80,
+    height: windowHeight / 100 * 90,
 
   },
   heading: {
@@ -150,5 +152,9 @@ const styles = StyleSheet.create({
   },
   button: {
     width: windowWidth / 100 * 80
+  },
+  switchOption: {
+    // flex:1,
+    flexDirection:'row',
   },
 })

@@ -26,7 +26,8 @@ export default function StartScreen({ navigation }) {
         console.log(value);
     } catch (error) {
       console.error('Error while retrieving @visited from AsyncStorage:', error);
-      navigation.navigate('MainApp');
+      // TODO: i dont want to get back here after moving to main screen
+      navigation.replace('MainApp');
     }
   };
 

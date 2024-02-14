@@ -12,6 +12,10 @@ const windowHeight = Dimensions.get('window').height;
 
 
 export default function Index({navigation}) {
+    const customColors={
+        color1:'#fff',
+        color2:'#fff',
+    }
     // TODO: Loading Screen
     return (
         <View style={styles.container}>
@@ -38,7 +42,7 @@ export default function Index({navigation}) {
                     style={styles.button}>
                     <GradientButton 
                     name={'Create an Account'}
-                    empty={true} />
+                    empty={true} customColors={customColors} />
                 </Pressable>
             </View>
         </View>

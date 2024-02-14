@@ -16,6 +16,7 @@ import HomeScreen from './screens/HomeScreen';
 import Authentication from './screens/Authentication/Index';
 import SignUpScreen from './screens/Authentication/SignUpScreen';
 import LogInScreen from './screens/Authentication/LogInScreen';
+import ResetPasswordScreen from './screens/Authentication/ResetPasswordScreen';
 
 export default function MainApp({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,6 +47,7 @@ export default function MainApp({ navigation }) {
           <Stack.Screen name="Authentication" component={Authentication} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="LogIn" component={LogInScreen} />
+          <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
         </>
       )}
     </Stack.Navigator>
