@@ -10,11 +10,14 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function GradientButton(props) {
   const empty = props.empty?true:false;
+  const { customColors: customColors } = props ?? {};
+
+  console.log(customColors?.color1)
 
   return (
     <LinearGradient 
-    colors={empty?['#fff', '#fff']:[global.baseLinear2, global.baseLinear1] }
-    style={[styles.gradientView, styles.emptyView]} start={{ x: 0, y: 0 }}
+    colors={customColors?[customColors.color1, customColors.color2]:[global.baseLinear2, global.baseLinear1] }
+    style={[styles.gradientView, empty?styles.emptyView:null]} start={{ x: 0, y: 0 }}
     end={{ x: 1, y: 0 }}>
         <View style={styles.btn}>
           <Text style={[global.textBlack, global.textC, empty?styles.emptyText:global.textWhite]} >{props.name?props.name:null}</Text>
