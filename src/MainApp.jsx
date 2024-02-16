@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -17,19 +16,23 @@ import Authentication from './screens/Authentication/Index';
 import SignUpScreen from './screens/Authentication/SignUpScreen';
 import LogInScreen from './screens/Authentication/LogInScreen';
 import ResetPasswordScreen from './screens/Authentication/ResetPasswordScreen';
+import LoadingFullScreen from './Components/common/LoadingFullScreen';
 
 export default function MainApp({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Check user authentication status
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const userToken = await AsyncStorage.getItem('@userToken');
+        const userToken = await AsyncStorage.getItem('token');
         setIsLoggedIn(!!userToken); // Convert userToken to boolean
       } catch (error) {
         console.error('Error checking authentication:', error);
         navigation.navigate('Authentication')
+      } finally {
+        setIsLoading(false); // Set loading to false regardless of the result
       }
     };
 
@@ -38,20 +41,22 @@ export default function MainApp({ navigation }) {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }} >
-      {isLoggedIn ? (
-        <>
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="Authentication" component={Authentication} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="LogIn" component={LogInScreen} />
-          <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-        </>
+      {isLoading ? (
+        <Stack.Screen name='LoadingFull' component={LoadingFullScreen}/>
+        ) : (
+        isLoggedIn ? (
+          <>
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Authentication" component={Authentication} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="LogIn" component={LogInScreen} />
+            <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+          </>
+        )
       )}
     </Stack.Navigator>
   )
 }
-
-const styles = StyleSheet.create({})

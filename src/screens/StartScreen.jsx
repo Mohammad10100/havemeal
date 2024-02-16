@@ -23,7 +23,6 @@ export default function StartScreen({ navigation }) {
       const value = await AsyncStorage.getItem('@visited');
       value == 1?navigation.navigate('MainApp')
         : navigation.navigate('OnBoarding')
-        console.log(value);
     } catch (error) {
       console.error('Error while retrieving @visited from AsyncStorage:', error);
       // TODO: i dont want to get back here after moving to main screen

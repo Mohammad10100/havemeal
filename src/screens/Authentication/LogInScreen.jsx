@@ -6,7 +6,12 @@ const global = require('../../css/css')
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+import { login } from '../../services/operations/authAPI'
+import { useDispatch } from 'react-redux';
+ 
 export default function LogInScreen({ navigation }) {
+  const dispatch = useDispatch()
+
   const customColorsBlue = {
     color1: '#367FC0',
     color2: '#367FC0',
@@ -35,7 +40,8 @@ export default function LogInScreen({ navigation }) {
       return;
     }
 
-    // TODO: API Call and Handling 
+    // TODO: API Call and Handling
+    dispatch(login(formData.email, formData.password, navigation))
 
     console.log('Login form data:', formData);
   };

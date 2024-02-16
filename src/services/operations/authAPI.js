@@ -3,6 +3,7 @@ import { setLoading, setToken } from "../../slices/authSlice"
 import { setUser } from "../../slices/profileSlice"
 import { apiConnector } from "../apiconnector"
 import { endpoints } from "../apis"
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 const {
   SENDOTP_API,
@@ -83,9 +84,9 @@ export function signUp(
   }
 }
 
-export function login(email, password, navigate) {
+export function login(email, password, navigation) {
   return async (dispatch) => {
-    const toastId = toast.loading("Loading...")
+    // const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
     try {
       const response = await apiConnector("POST", LOGIN_API, {
@@ -93,27 +94,25 @@ export function login(email, password, navigate) {
         password,
       })
 
-      console.log("LOGIN API RESPONSE............", response)
+      console.log("LOGIN API RESPONSE............", response.data.success)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
       }
 
       dispatch(setToken(response.data.token)) 
-      const userImage = response.data?.user?.image
-      ? response.data.user.image
-      : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
+      const userImage = response.data.user.image || `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.name}`
       dispatch(setUser({ ...response.data.user, image: userImage }))
-      localStorage.setItem('user', JSON.stringify(response.data.user))
-      localStorage.setItem("token", JSON.stringify(response.data.token))
-      navigate("/dashboard/my-profile")
-      toast.success("Login Successful")
+      AsyncStorage.setItem('user', JSON.stringify(response.data.user));
+      AsyncStorage.setItem('token', response.data.token);
+      navigation.replace('MainApp', { screen: 'HomeScreen' });
+      // toast.success("Login Successful")
     } catch (error) {
       console.log("LOGIN API ERROR............", error)
       toast.error("Login Failed")
     }
     dispatch(setLoading(false))
-    toast.dismiss(toastId)
+    // toast.dismiss(toastId)
   }
 }
 

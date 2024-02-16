@@ -12,8 +12,6 @@ export default function GradientButton(props) {
   const empty = props.empty?true:false;
   const { customColors: customColors } = props ?? {};
 
-  console.log(customColors?.color1)
-
   return (
     <LinearGradient 
     colors={customColors?[customColors.color1, customColors.color2]:[global.baseLinear2, global.baseLinear1] }

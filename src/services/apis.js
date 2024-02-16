@@ -1,4 +1,6 @@
-const BASE_URL = process.env.REACT_APP_BASE_URL
+import Config from "react-native-config";
+const BASE_URL = Config.REACT_APP_BASE_URL
+console.log(BASE_URL);
 
 // AUTH ENDPOINTS
 export const endpoints = {
