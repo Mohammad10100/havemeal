@@ -17,6 +17,7 @@ import SignUpScreen from './screens/Authentication/SignUpScreen';
 import LogInScreen from './screens/Authentication/LogInScreen';
 import ResetPasswordScreen from './screens/Authentication/ResetPasswordScreen';
 import LoadingFullScreen from './Components/common/LoadingFullScreen';
+import OTPVerificationScreen from './screens/Authentication/OTPVerificationScreen';
 
 export default function MainApp({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,6 +55,9 @@ export default function MainApp({ navigation }) {
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="LogIn" component={LogInScreen} />
             <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+            <Stack.Screen name="OTPVerification"
+            screenOptions={{ presentation: 'modal' }}
+            component={OTPVerificationScreen} />
           </>
         )
       )}

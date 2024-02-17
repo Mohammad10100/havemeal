@@ -4,6 +4,7 @@ import { setUser } from "../../slices/profileSlice"
 import { apiConnector } from "../apiconnector"
 import { endpoints } from "../apis"
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
+import { Alert } from "react-native";
 
 const {
   SENDOTP_API,
@@ -13,7 +14,7 @@ const {
   // RESETPASSWORD_API,
 } = endpoints
 
-export function sendOtp(email, navigate) {
+export function sendOtp(email, navigation) {
   return async (dispatch) => {
     // TODO: Loading spinner
     // Display loading spinner
@@ -31,12 +32,15 @@ export function sendOtp(email, navigate) {
         throw new Error(response.data.message)
       }
 
-      toast.success("OTP Sent Successfully")
       // TODO: verify email and phone number
       // navigate to verify screen
+      navigation.navigate('OTPVerification')
     } catch (error) {
       console.log("SENDOTP API ERROR............", error)
-      toast.error("Could Not Send OTP")
+      Alert.alert('Something Went Wrong', 'Could Not Send OTP Please Try Again', [
+        {text: 'OK', onPress: () => console.log('OK')},
+      ]);
+  
     }
     dispatch(setLoading(false))
     // TODO: Set loading false
@@ -44,26 +48,27 @@ export function sendOtp(email, navigate) {
 }
 
 export function signUp(
-  accountType,
-  firstName,
-  lastName,
+  name,
   email,
   password,
   confirmPassword,
+  accountType,
+  address,
+  contactNumber,
   otp,
-  navigate
+  navigation
 ) {
   return async (dispatch) => {
-    const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
     try {
       const response = await apiConnector("POST", SIGNUP_API, {
-        accountType,
-        firstName,
-        lastName,
+        name,
         email,
         password,
         confirmPassword,
+        accountType,
+        address,
+        contactNumber,
         otp,
       })
 
@@ -72,15 +77,13 @@ export function signUp(
       if (!response.data.success) {
         throw new Error(response.data.message)
       }
-      toast.success("Signup Successful")
-      navigate("/login")
+      // TODO: get a jwt token while signing up, and set token in AsyncStorage
+      navigation.replace('MainApp', { screen: 'HomeScreen' });
     } catch (error) {
       console.log("SIGNUP API ERROR............", error)
-      toast.error("Signup Failed")
-      navigate("/signup")
+      navigation.replace("SignUp")
     }
     dispatch(setLoading(false))
-    toast.dismiss(toastId)
   }
 }
 

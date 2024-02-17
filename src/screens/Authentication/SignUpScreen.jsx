@@ -1,20 +1,32 @@
 import { StyleSheet, Text, TextInput, View, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import GradientButton from '../../Components/common/GradientButton'
+import { useDispatch, useSelector } from 'react-redux';
 const global = require('../../css/css')
+import { ACCOUNT_TYPE } from "../../utils/constants"
+
+import { sendOtp } from "../../services/operations/authAPI"
+import { setSignupData } from "../../slices/authSlice"
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function SignUpScreen({ navigation }) {
-  const [formData, setFormData] = useState({
+  const dispatch = useDispatch()
+  const { signupData, loading } = useSelector((state) => state.auth);
+
+  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.BUYER)
+  const formObj = {
     name: '',
     email: '',
     mobileNumber: '',
     address: '',
     password: '',
     confirmPassword: '',
-  });
+    contactNumber: '',
+    accountType: accountType,
+  }
+  const [formData, setFormData] = useState(signupData || formObj);
 
   const handleChange = (name, value) => {
     setFormData(prevState => ({
@@ -33,6 +45,7 @@ export default function SignUpScreen({ navigation }) {
       !formData.mobileNumber ||
       !formData.address ||
       !formData.password ||
+      !formData.contactNumber ||
       !formData.confirmPassword) {
       alert('Please Fill All The Details');
       return;
@@ -43,6 +56,12 @@ export default function SignUpScreen({ navigation }) {
     }
 
     // TODO: API Call and Handling 
+    // Setting signup data to state
+    // To be used after otp verification
+    dispatch(setSignupData(formData))
+    // Send OTP to user for verification
+    dispatch(sendOtp(formData.email, navigation))
+
 
     console.log('Signup form data:', formData);
   };
@@ -67,6 +86,7 @@ export default function SignUpScreen({ navigation }) {
         <TextInput
           style={[global.textC, global.inputStyle, styles.input]}
           placeholder="Email"
+          value={formData.email}
           onChangeText={text => handleChange('email', text)}
           keyboardType="email-address"
           autoCapitalize="none"
@@ -74,8 +94,8 @@ export default function SignUpScreen({ navigation }) {
         <TextInput
           style={[global.textC, global.inputStyle, styles.input]}
           placeholder="Mobile Number"
-          value={formData.mobileNumber}
-          onChangeText={text => handleChange('mobileNumber', text)}
+          value={formData.contactNumber}
+          onChangeText={text => handleChange('contactNumber', text)}
           keyboardType="number-pad"
         />
         <TextInput
